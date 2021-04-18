@@ -5,27 +5,25 @@ const notes = require('./notes');
 
 const addNoteHandler = (request, h) => {
   const { title, tags, body } = request.payload;
+  console.log(title, tags, body);
+
   const id = nanoid(16);
   const createdAt = new Date().toISOString();
   const updatedAt = createdAt;
 
   const newNote = {
-    title,
-    tags,
-    body,
-    id,
-    createdAt,
-    updatedAt,
+    title, tags, body, id, createdAt, updatedAt,
   };
 
   notes.push(newNote);
+  console.log(notes);
 
   const isSuccess = notes.filter((note) => note.id === id).length > 0;
 
   if (isSuccess) {
     const response = h.response({
       status: 'success',
-      message: 'Catatan berhasil ditambahkan ( FIX )',
+      message: 'Catatan berhasil ditambahkan',
       data: {
         noteId: id,
       },
@@ -33,12 +31,10 @@ const addNoteHandler = (request, h) => {
     response.code(201);
     return response;
   }
-
   const response = h.response({
     status: 'fail',
     message: 'Catatan gagal ditambahkan',
   });
-
   response.code(500);
   return response;
 };
@@ -52,16 +48,14 @@ const getAllNotesHandler = () => ({
 
 const getNoteByIdHandler = (request, h) => {
   const { id } = request.params;
+
   const note = notes.filter((n) => n.id === id)[0];
 
   if (note !== undefined) {
     return {
-      status: 'successssss',
+      status: 'success',
       data: {
-        note: notes.map((note) => ({
-          id: note.id,
-          title: note.title,
-        })),
+        note,
       },
     };
   }

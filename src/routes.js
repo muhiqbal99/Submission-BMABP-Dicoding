@@ -8,7 +8,6 @@ const {
 } = require('./handler');
 
 const routes = [
-
   {
     method: 'POST',
     path: '/notes',
