@@ -7,7 +7,7 @@ const addNoteHandler = (request, h) => {
   const { title, tags, body } = request.payload;
   const id = nanoid(16);
   const createdAt = new Date().toISOString();
-  const updateAt = createdAt;
+  const updatedAt = createdAt;
 
   const newNote = {
     title,
@@ -15,7 +15,7 @@ const addNoteHandler = (request, h) => {
     body,
     id,
     createdAt,
-    updateAt,
+    updatedAt,
   };
 
   notes.push(newNote);
@@ -25,7 +25,7 @@ const addNoteHandler = (request, h) => {
   if (isSuccess) {
     const response = h.response({
       status: 'success',
-      message: 'Catatan berhasil ditambahkan',
+      message: 'Catatan berhasil ditambahkan ( FIX )',
       data: {
         noteId: id,
       },
@@ -56,9 +56,12 @@ const getNoteByIdHandler = (request, h) => {
 
   if (note !== undefined) {
     return {
-      status: 'success',
+      status: 'successssss',
       data: {
-        note,
+        note: notes.map((note) => ({
+          id: note.id,
+          title: note.title,
+        })),
       },
     };
   }
