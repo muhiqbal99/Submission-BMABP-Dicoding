@@ -33,16 +33,17 @@ const addBookHandler = (request, h) => {
     });
     response.code(400);
     return response;
-  } else if (readPage > pageCount) {
+  }
+
+  if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
       message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
     });
     response.code(400);
     return response;
-  } else {
-    books.push(newBook);
   }
+  books.push(newBook);
 
   const isSuccess = books.filter((book) => book.id === id).length > 0;
 
@@ -56,14 +57,13 @@ const addBookHandler = (request, h) => {
     });
     response.code(201);
     return response;
-  } else {
-    const response = h.response({
-      status: 'error',
-      message: 'Catatan gagal ditambahkan',
-    });
-    response.code(500);
-    return response;
   }
+  const response = h.response({
+    status: 'error',
+    message: 'Catatan gagal ditambahkan',
+  });
+  response.code(500);
+  return response;
 };
 
 const getAllBookHandler = (request, h) => {
@@ -99,7 +99,9 @@ const getAllBookHandler = (request, h) => {
     });
     response.code(200);
     return response;
-  } else if (reading === '0') {
+  }
+
+  if (reading === '0') {
     const response = h.response({
       status: 'success',
       data: {
@@ -127,7 +129,9 @@ const getAllBookHandler = (request, h) => {
     });
     response.code(200);
     return response;
-  } else if (finished === '0') {
+  }
+
+  if (finished === '0') {
     const response = h.response({
       status: 'success',
       data: {
@@ -140,20 +144,19 @@ const getAllBookHandler = (request, h) => {
     });
     response.code(200);
     return response;
-  } else {
-    const response = h.response({
-      status: 'success',
-      data: {
-        books: books.map((book) => ({
-          id: book.id,
-          name: book.name,
-          publisher: book.publisher,
-        })),
-      },
-    });
-    response.code(200);
-    return response;
   }
+  const response = h.response({
+    status: 'success',
+    data: {
+      books: books.map((book) => ({
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+      })),
+    },
+  });
+  response.code(200);
+  return response;
 };
 
 const getDetailBookHandler = (request, h) => {
