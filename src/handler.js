@@ -77,28 +77,6 @@ const getAllBookHandler = () => ({
   },
 });
 
-const getBookByNameHandler = (request, h) => {
-  const { name } = request.params;
-
-  const book = books.filter((book) => book.name === name)[0];
-
-  if (book !== undefined) {
-    return {
-      status: 'success',
-      data: {
-        book,
-      },
-    };
-  }
-
-  const response = h.response({
-    status: 'fail',
-    message: 'Buku tidak ditemukan',
-  });
-  response.code(404);
-  return response;
-};
-
 const getDetailBookHandler = (request, h) => {
   const { bookId } = request.params;
 
@@ -203,7 +181,6 @@ const deleteBookByIdHandler = (request, h) => {
 module.exports = {
   addBookHandler,
   getAllBookHandler,
-  getBookByNameHandler,
   getDetailBookHandler,
   editBookByIdHandler,
   deleteBookByIdHandler,

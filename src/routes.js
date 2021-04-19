@@ -1,7 +1,6 @@
 const {
   addBookHandler,
   getAllBookHandler,
-  getBookByNameHandler,
   getDetailBookHandler,
   editBookByIdHandler,
   deleteBookByIdHandler,
@@ -15,13 +14,8 @@ const routes = [
   },
   {
     method: 'GET',
-    path: '/books',
+    path: '/books/',
     handler: getAllBookHandler,
-  },
-  {
-    method: 'POST',
-    path: '/books/{name}',
-    handler: getBookByNameHandler,
   },
   {
     method: 'GET',
